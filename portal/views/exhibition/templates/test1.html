@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sale Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/common/static/css/bootstrap.min.css">
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#06149d947064612cd22cd636088234b85e10a4b2" data-toggle="collapse" type="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand">展会管理中心</span>
+    </div>
+    <div class="navbar-collapse collapse" id="06149d947064612cd22cd636088234b85e10a4b2">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="/common/home" title="主页">主页</a>
+        </li>
+        <li class="active">
+          <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">展会管理
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="active">
+              <a href="/exhibition/list" title="查看">查看</a>
+            </li>
+            <li class="divider" role="separator"></li>
+            <li>
+              <a href="/exhibition/test" title="创建">创建</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>展会地点</th>
+                <th>负责人</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>描述</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>2018-01-09 22:48:10</td>
+                <td>None</td>
+                <td>asdfasdf</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+<script src="/common/static/js/client.js"></script>
+<script src="/common/static/js/jquery-3.3.1.js"></script>
+<script>
+$(document).ready(function(){
+    GetJSON("http://127.0.0.1/exhibitions", "",
+        function(data){
+            alert(data)
+        }
+    )
+})
+</script>
+
+  </body>
+</html>

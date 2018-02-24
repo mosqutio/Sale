@@ -1,0 +1,129 @@
+{% block doc -%}
+<!DOCTYPE html>
+<html{% block html_attribs %}{% endblock html_attribs %}>
+{%- block html %}
+<head>
+    {%- block head %}
+    <title>{% block title %}{{title|default}}{% endblock title %}</title>
+
+    {%- block metas %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {%- endblock metas %}
+
+    {%- block styles %}
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{ url_for('common.static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('common.static', filename='css/bootstrap.min.css') }}">
+    <!--<link rel="stylesheet" href="{{ url_for('common.static', filename='css/bootstrap-theme.css') }}">-->
+    <!--<link rel="stylesheet" href="{{ url_for('common.static', filename='css/bootstrap-theme.min.css') }}">-->
+    {%- endblock styles %}
+
+    {%- endblock head %}
+</head>
+<body{% block body_attribs %}{% endblock body_attribs %}>
+{% block body -%}
+{% block navbar %}
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-toggle="collapse" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">展会管理中心</span>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/common/home" title="主页">主页</a>
+                </li>
+                <li class="dropdown">
+                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
+                       href="#" role="button">展会管理<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="/exhibition/list" title="查看">查看</a>
+                        </li>
+                        <li class="divider" role="separator"></li>
+                        <li>
+                            <a href="/exhibition/create" title="创建">创建</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/user/list" title="人员管理">人员管理</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--<div class="navbar navbar-fixed-top">-->
+		<!--<div class="navbar-inner">-->
+			<!--<div class="container">-->
+				<!--<ul class="nav">-->
+					<!--<li class="active">-->
+						<!--<a class="brand" href="#">runoob</a>-->
+					<!--</li>-->
+					<!--<li><a href="#">About</a></li>-->
+					<!--<li><a href="#">Portfolio</a></li>-->
+					<!--<li><a href="#">Contact</a></li>-->
+				<!--</ul>-->
+				<!--<ul class="nav">-->
+					<!--<li class="dropdown">-->
+						<!--<a href="#"-->
+						   <!--class="dropdown-toggle"-->
+						   <!--data-toggle="dropdown">-->
+							<!--Services-->
+							<!--<b class="caret"></b>-->
+						<!--</a>-->
+						<!--<ul class="dropdown-menu">-->
+							<!--<li><a href="#">Web Design</a></li>-->
+							<!--<li><a href="#">Web development</a></li>-->
+							<!--<li><a href="#">Wordpress Theme development</a></li>-->
+						<!--</ul>-->
+					<!--</li>-->
+				<!--</ul>-->
+				<!--<form class="navbar-search pull-left">-->
+					<!--<input type="text" class="search-query" placeholder="Search">-->
+				<!--</form>-->
+				<!--<ul class="nav pull-right">-->
+					<!--<li class="dropdown">-->
+						<!--<a href="#"-->
+						   <!--class="dropdown-toggle"-->
+						   <!--data-toggle="dropdown">-->
+							<!--Social-->
+							<!--<b class="caret"></b>-->
+						<!--</a>-->
+						<!--<ul class="dropdown-menu">-->
+							<!--<li class="socials">&lt;!&ndash; Place this tag where you want the +1 button to render &ndash;&gt;-->
+								<!--<g:plusone annotation="inline" width="150"></g:plusone>-->
+							<!--</li>-->
+							<!--<li class="socials"><div class="fb-like" data-send="false" data-width="150" data-show-faces="true"></div></li>-->
+							<!--<li class="socials"><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>-->
+								<!--<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></li>-->
+						<!--</ul>-->
+					<!--</li>-->
+				<!--</ul>-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
+{%- endblock navbar %}
+
+{% block content -%}
+{%- endblock content %}
+
+{% block scripts %}
+<script src="{{ url_for('common.static', filename='js/jquery.js') }}"></script>
+<!--<script src="{{ url_for('common.static', filename='js/jquery.min.js') }}"></script>-->
+<script src="{{ url_for('common.static', filename='js/bootstrap.js') }}"></script>
+<!--<script src="{{ url_for('common.static', filename='js/bootstrap.min.js') }}"></script>-->
+{%- endblock scripts %}
+
+{%- endblock body %}
+</body>
+{%- endblock html %}
+</html>
+{% endblock doc -%}

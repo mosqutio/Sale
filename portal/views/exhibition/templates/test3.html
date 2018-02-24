@@ -1,0 +1,49 @@
+{% extends 'bootstrap/base.html' %}
+{% block title %}{{ title_name }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>展会地点</th>
+                <th>负责人</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>描述</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for exhibition in exhibitions %}
+            <tr>
+                <td>{{ exhibition.locale }}</td>
+                <td>{{ exhibition.owner }}</td>
+                <td>{{ exhibition.start_time }}</td>
+                <td>{{ exhibition.end_time }}</td>
+                <td>{{ exhibition.description }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('common.static', filename='css/bootstrap.min.css') }}">
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('common.static', filename='js/client.js') }}"></script>
+<script src="{{ url_for('common.static', filename='js/jquery-3.3.1.js') }}"></script>
+<script>
+$(document).ready(function(){
+    GetJSON("http://127.0.0.1/exhibitions", "",
+        function(data){
+            alert(data)
+        }
+    )
+})
+</script>
+{% endblock scripts %}
