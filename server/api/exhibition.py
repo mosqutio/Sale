@@ -12,9 +12,11 @@ class Exhibition(BaseResource):
         super(Exhibition, self).__init__()
 
     def create(self):
-        args = request.args
-
-        return jsonify(args)
+        args = request.get_json()
+        print(args)
+        args = args.get("exhibition")
+        _exhibition = db_api.create_exhibition(args)
+        return jsonify({"exhibition": exhibition_to_dict(_exhibition)})
 
     def list(self):
         start_time = request.args.get("start_time")
@@ -33,15 +35,16 @@ class Exhibition(BaseResource):
     def get(self, obj_id):
         return "kkk" + obj_id
 
-# exhibition = Exhibition()
+
+exhibition = Exhibition()
 # print("user.resource_name", exhibition.resource_name)
 
-
-def register_api(app):
-    exhibition = Exhibition()
-    app.add_url_rule("/exhibitions/<obj_id>", endpoint=exhibition.resource_name + "_get", methods=['GET'],
-                     view_func=exhibition.get)
-    app.add_url_rule("/exhibitions", endpoint=exhibition.resource_name + "_list", methods=['GET'],
-                     view_func=exhibition.list)
-    app.add_url_rule("/exhibitions", endpoint=exhibition.resource_name + "_create", methods=['POST'],
-                     view_func=exhibition.create)
+#
+# def register_api(app):
+#     exhibition = Exhibition()
+#     app.add_url_rule("/exhibitions/<obj_id>", endpoint=exhibition.resource_name + "_get", methods=['GET'],
+#                      view_func=exhibition.get)
+#     app.add_url_rule("/exhibitions", endpoint=exhibition.resource_name + "_list", methods=['GET'],
+#                      view_func=exhibition.list)
+#     app.add_url_rule("/exhibitions", endpoint=exhibition.resource_name + "_create", methods=['POST'],
+#                      view_func=exhibition.create)

@@ -17,6 +17,7 @@ def exhibition_to_dict(exhibitions):
         view['end_time'] = exhibitions.end_time
         view['start_time'] = exhibitions.start_time
         view['description'] = exhibitions.description
+        view['status'] = exhibitions.status
     return view
 
 

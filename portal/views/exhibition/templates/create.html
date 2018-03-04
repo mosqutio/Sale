@@ -2,37 +2,128 @@
 
 {% block title %}{{ title_name }}{% endblock %}
 
+{%- block styles %}
+{{ super() }}
+<link href="{{ url_for('common.static', filename='css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" media="screen">
+{%- endblock styles %}
+
 {% block content %}
-        <div class="container">
-        <table class="table">
-    <thead>
-    <tr>
-        <th>Student-ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Grade</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>001</td>
-        <td>Rammohan </td>
-        <td>Reddy</td>
-        <td>A+</td>
-    </tr>
-    <tr>
-        <td>002</td>
-        <td>Smita</td>
-        <td>Pallod</td>
-        <td>A</td>
-    </tr>
-    <tr>
-        <td>003</td>
-        <td>Rabindranath</td>
-        <td>Sen</td>
-        <td>A+</td>
-    </tr>
-    </tbody>
-</table>
+<form class="form-horizontal" role="form">
+	<div class="form-group">
+		<label for="exhibition_name" class="col-sm-2 control-label">展會名稱</label>
+		<div class="col-sm-10 col-md-5">
+			<input type="text" class="form-control" id="exhibition_name"
+				   placeholder="请输入展會名字">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="owner_name" class="col-sm-2 control-label">展會負責人</label>
+		<div class="col-sm-10 col-md-5">
+			<input type="text" class="form-control" id="owner_name"
+				   placeholder="请输入展會負責人">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="start_time" class="col-sm-2 control-label">開始時間</label>
+		<!--<div class="col-sm-10">-->
+			<!--<input type="text" class="form-control" id="start_time" placeholder="開始時間">-->
+		<!--</div>-->
+		<!--<div class="input-group date form_datetime col-md-5" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="start_time">-->
+			<!--<input class="form-control" size="16" type="text" value="" readonly>-->
+			<!--<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>-->
+			<!--<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>-->
+		<!--</div>-->
+		<!--<input type="hidden" id="start_time" value="" /><br/>-->
+		<div class="controls input-append date form_date col-md-5" data-date="" data-date-format="dd-mm-yyyy" data-link-field="start_time" data-link-format="yyyy-mm-dd">
+			<input class="form-control col-sm-10" size="16" type="text" value="" readonly>
+			<!--<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>-->
+			<span class="add-on"><span class="icon-th"></span></span>
+		</div>
+		<input type="hidden" id="start_time" value="" /><br/>
+	</div>
+	<div class="form-group">
+		<label for="end_time" class="col-sm-2 control-label">結束時間</label>
+		<!--<div class="col-sm-10">-->
+			<!--<input type="text" class="form-control" id="end_time" placeholder=結束時間">-->
+		<!--</div>-->
+		<div class="controls input-append date form_date col-md-5" data-date="" data-date-format="dd-mm-yyyy" data-link-field="end_time" data-link-format="yyyy-mm-dd">
+			<input class="form-control col-sm-10" size="16" type="text" value="" readonly>
+			<!--<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>-->
+			<span class="add-on"><span class="icon-th"></span></span>
+		</div>
+		<input type="hidden" id="end_time" value="" /><br/>
+	</div>
+	<div class="form-group">
+		<label for="status" class="col-sm-2 control-label">狀態</label>
+        <div class="col-sm-10 col-md-5">
+          <select id="status" class="form-control">
+              <option>plan</option>
+              <option>doing</option>
+              <option>give_up</option>
+          </select>
         </div>
+	</div>
+    <div class="form-group">
+      <label for="description" class="col-sm-2 control-label">描述</label>
+      <div class="col-sm-10 col-md-5">
+          <textarea class="col-sm-2 form-control" id="description" rows="3"></textarea>
+      </div>
+    </div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-default" onclick="create_exhibition()">創建</button>
+		</div>
+	</div>
+</form>
 {% endblock content %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('common.static', filename='js/client.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('common.static', filename='js/bootstrap-datetimepicker.js') }}" charset="UTF-8"></script>
+<!--<script type="text/javascript" src="{{ url_for('common.static', filename='js/locales/bootstrap-datetimepicker.zh-CN.js') }}" charset="UTF-8"></script>-->
+<script type="text/javascript">
+$(document).ready(function(){
+	<!--$('.form_datetime').datetimepicker({-->
+		<!--language:  'zh-CN',-->
+		<!--weekStart: 1,-->
+		<!--todayBtn:  1,-->
+		<!--autoclose: 1,-->
+		<!--todayHighlight: 1,-->
+		<!--startView: 2,-->
+		<!--forceParse: 0,-->
+		<!--showMeridian: 1-->
+	<!--});-->
+	$('.form_date').datetimepicker({
+		<!--language:  'zh-CN',-->
+		weekStart: 1,
+		todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+	});
+})
+function create_exhibition(){
+	var data = {
+		locate: $('#exhibition_name').val(),
+		owner: $('#owner_name').val(),
+		start_time: $('#start_time').val(),
+		end_time: $('#end_time').val(),
+		status: $('#status').val(),
+		description: $('#description').val()
+	};
+	exhibition = {
+		exhibition: data
+	}
+	<!--data.exhibition = {}-->
+	<!--data.exhibition.kk = "test"-->
+    postJSON("{{ url_for('exhibitions_create') }}", JSON.stringify(exhibition),
+        function(data){
+            alert('Create OK')
+        }
+    );
+}
+</script>
+{%- endblock scripts %}

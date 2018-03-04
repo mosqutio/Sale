@@ -23,8 +23,8 @@ postJSON = function(url,data,callback){
         success:function(msg){
             callback(msg);
         },
-        error:function(xhr,textstatus,thrown){
-
+        error:function(msg){
+            alert("Post Error.")
         }
     });
 };

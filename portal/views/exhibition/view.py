@@ -1,5 +1,6 @@
 from flask import Blueprint
 from flask import render_template
+# from server import
 
 exhitibion = Blueprint("exhibition", __name__,
                        template_folder="templates",

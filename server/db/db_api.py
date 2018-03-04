@@ -1,5 +1,5 @@
-# import db
-from . import db
+# import db_model
+from . import db_model
 import copy
 import datetime
 from functools import wraps
@@ -26,46 +26,46 @@ from sqlalchemy.sql import func
 
 
 def list_users():
-    session = db.get_session()
+    session = db_model.get_session()
     # print(session)
     # print(dir(session))
-    obj = session.query(db.User).all()
+    obj = session.query(db_model.User).all()
     if not obj:
         return []
     return obj
 
 
 def get_users(user_id):
-    session = db.get_session()
-    user = session.query(db.User).filter_by(id=user_id).first()
+    session = db_model.get_session()
+    user = session.query(db_model.User).filter_by(id=user_id).first()
     if not user:
         raise Exception("user no found")
     return user
 
 
 def list_materiel_types():
-    session = db.get_session()
-    obj = session.query(db.MaterielType).all()
+    session = db_model.get_session()
+    obj = session.query(db_model.MaterielType).all()
     if not obj:
         return []
     return obj
 
 
 def list_materiels():
-    session = db.get_session()
-    obj = session.query(db.Materiel).all()
+    session = db_model.get_session()
+    obj = session.query(db_model.Materiel).all()
     if not obj:
         return []
     return obj
 
 
 def list_exhibitions(start_time=None, end_time=None, limit=100, offset=0):
-    session = db.get_session()
-    query = session.query(db.Exhibition)
+    session = db_model.get_session()
+    query = session.query(db_model.Exhibition)
     if start_time:
-        query = query.filter(db.Exhibition.start_time > start_time)
+        query = query.filter(db_model.Exhibition.start_time > start_time)
     if end_time:
-        query = query.filter(db.Exhibition.end_time < end_time)
+        query = query.filter(db_model.Exhibition.end_time < end_time)
 
     query = query.limit(limit)
     if offset:
@@ -76,9 +76,30 @@ def list_exhibitions(start_time=None, end_time=None, limit=100, offset=0):
     return obj
 
 
+def get_exhibition(exhibition_id, session=None):
+    if not session:
+        session = db_model.get_session()
+    query = session.query(db_model.Exhibition).filter_by(id=exhibition_id)
+    exhibition = query.first()
+    return exhibition
+
+
+def create_exhibition(values, session=None):
+    if not session:
+        session = db_model.get_session()
+
+    exhibition = db_model.Exhibition()
+    exhibition.update(values)
+    # exhibition.save(session=session)
+    session.add(exhibition)
+    session.commit()
+
+    return get_exhibition(exhibition.id, session=session)
+
+
 def list_materiel_in_exhibition(exhibition_id):
-    session = db.get_session()
-    obj = session.query(db.ExhibitionMaterielRelationShip).\
+    session = db_model.get_session()
+    obj = session.query(db_model.ExhibitionMaterielRelationShip).\
         filter_by(exhibition_id=exhibition_id).all()
     if not obj:
         return []
@@ -86,10 +107,10 @@ def list_materiel_in_exhibition(exhibition_id):
 
 
 def list_participant_in_exhibition(exhibition_id):
-    session = db.get_session()
-    obj = session.query(db.ExhibitionParticipants, db.User.user_name).\
-        join(db.User, db.ExhibitionParticipants.user_id == db.User.id).\
-        filter(db.ExhibitionParticipants.exhibition_id == exhibition_id).\
+    session = db_model.get_session()
+    obj = session.query(db_model.ExhibitionParticipants, db_model.User.user_name).\
+        join(db_model.User, db_model.ExhibitionParticipants.user_id == db_model.User.id).\
+        filter(db_model.ExhibitionParticipants.exhibition_id == exhibition_id).\
         all()
     if not obj:
         return []
